@@ -1,0 +1,226 @@
+/***** General Styles *****/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  font-size: 62.5%;
+
+  /*** Colors ***/
+  --hue: 240;
+  --color-base-white: hsl(0, 100%, 100%);
+  --color-base-gray-100: hsl(0, 0%, 96%);
+  --color-base-gray-150: hsl(0, 0%, 93%);
+  --color-base-gray-300: hsl(var(--hue), 6%, 58%);
+  --color-base-gray-500: hsl(0, 0%, 24%);
+  --color-base-gray-700: hsl(var(--hue), 6%, 21%);
+  --color-base-gray-900: hsl(var(--hue), 6%, 10%);
+
+  /*** Typos ***/
+  --line-height-160-percent: 160%;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+  font-size: 1.6rem;
+  color: var(--color-base-gray-900);
+  background-color: var(--color-base-white);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+/***** Container & Grid *****/
+.container {
+  width: clamp(28rem, calc(100vw - 10rem), 122rem);
+  margin-inline: auto;
+}
+
+#app {
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  height: 100vh;
+}
+
+/***** Header *****/
+#app header {
+  --startY: -100%;
+
+  padding-block: 2rem;
+  animation: moveDown 0.3s ease-out;
+}
+
+#app header,
+#app .nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7.6rem;
+}
+
+#app .nav a {
+  color: var(--color-base-gray-300);
+  font-size: 1.8rem;
+  line-height: var(--line-height-160-percent);
+  font-weight: 700;
+  transition: color 0.3s;
+}
+
+#app .nav a:hover {
+  color: var(--color-base-gray-900);
+}
+
+#app header form {
+  flex: 1 1 28rem;
+}
+
+#app header form label {
+  position: absolute;
+  clip-path: inset(50%);
+}
+
+#app header form .search {
+  width: 100%;
+  height: 4.8rem;
+  padding: 1.6rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-base-gray-500);
+  background-color: var(--color-base-gray-150);
+  border-radius: 0.5rem;
+  border: none;
+}
+
+#app header form .search::placeholder {
+  opacity: 0.56;
+  color: var(--color-base-gray-500);
+}
+
+#app header .avatar {
+  border-radius: 50%;
+}
+
+/***** Main Content *****/
+#app main {
+  padding: 3.2rem 0 6.4rem;
+  overflow-y: scroll;
+  background-color: var(--color-base-gray-100);
+}
+
+#app main h1 {
+  margin-bottom: 3.6rem;
+  font-size: 2.4rem;
+  line-height: var(--line-height-160-percent);
+}
+
+#app .gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+}
+
+#app .gallery .item {
+  --delay: 0.4s;
+
+  background-color: var(--color-base-white);
+  border-radius: 0.8rem;
+  overflow: hidden;
+  animation: appear 0.4s var(--delay) backwards;
+}
+
+#app .gallery .item img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: all 0.2s ease-out;
+}
+
+#app .gallery .item img:hover {
+  transform: scale(1.1) rotate(2deg);
+  filter: hue-rotate(7deg) contrast(101%) saturate(200%);
+}
+
+#app .gallery .details {
+  position: relative;
+  z-index: 1;
+  padding: 2.2rem;
+  background-color: var(--color-base-white);
+}
+
+#app .gallery .details h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  line-height: var(--line-height-160-percent);
+  color: var(--color-base-gray-900);
+}
+
+#app .gallery .details .tags span {
+  padding: 0.6rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: var(--color-base-gray-900);
+  background-color: var(--color-base-gray-100);
+  border-radius: 0.6rem;
+}
+
+/***** Footer *****/
+#app footer {
+  --startY: 100%;
+
+  padding-block: 1.6rem;
+  animation: moveDown 0.3s ease-out;
+}
+
+#app footer p {
+  font-weight: 600;
+  color: var(--color-base-gray-700);
+  text-align: center;
+}
+
+/***** Responsive *****/
+@media only screen and (max-width: 1024px) {
+  /*** Header ***/
+  #app header,
+  #app .nav ul {
+    gap: 1.6rem 3.6rem;
+  }
+
+  /*** Main Content ***/
+  #app .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  }
+}
+
+/***** Animations *****/
+@keyframes moveDown {
+  from {
+    transform: translateY(var(--startY));
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+}
